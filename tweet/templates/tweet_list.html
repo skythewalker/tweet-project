@@ -5,8 +5,11 @@ Chai aur tweet
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center  mt-4">Welcome to Django project</h1>
-<a href="{% url "create_tweet" %}" class="btn btn-primary mt-4">Create a tweet</a>
+{% if  user.authenticated %}<h6 class="text-end mt-1">profile - {{user}}</h6>{% endif %}
+<h1 class="text-center  mt-3">Welcome to Django project</h1>
+
+
+<a href="{% url "create_tweet" %}" class="btn btn-primary mt-4">Create tweet</a>
 <div class="container row gap-3 mt-4 bt-2">
     {% for tweet in tweets   %}
     <div class="card" style="width: 18rem;">
@@ -14,8 +17,10 @@ Chai aur tweet
         <div class="card-body">
           <h5 class="card-title">{{tweet.user.username}}</h5>
           <p class="card-text">{{tweet.text}}</p>
+          {% if tweet.user == user %}
           <a href="{% url "edit_tweet" tweet.id %}" class="btn btn-primary">Edit</a>
           <a href="{% url "delete_tweet" tweet.id %}" class="btn btn-danger">delete</a>
+          {% endif %}
         </div>
       </div>
       
